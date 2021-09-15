@@ -547,7 +547,6 @@ GameObject:
   m_Component:
   - component: {fileID: 948417380}
   - component: {fileID: 948417382}
-  - component: {fileID: 948417381}
   m_Layer: 5
   m_Name: BackgroundImg2
   m_TagString: TitleScreenBg
@@ -563,26 +562,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948417379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.072, y: 0, z: 10}
+  m_LocalPosition: {x: 15.024, y: 0, z: 10}
   m_LocalScale: {x: 1.57, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 836577648}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &948417381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948417379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccaaa3a7a39b47c4f9f88e8893326f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgImg: {fileID: 948417379}
-  resetPosX: 0
 --- !u!212 &948417382
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1194,7 +1179,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1904193547}
   - component: {fileID: 1904193548}
-  - component: {fileID: 1904193549}
   m_Layer: 5
   m_Name: BackgroundImg1
   m_TagString: TitleScreenBg
@@ -1211,7 +1195,7 @@ Transform:
   m_GameObject: {fileID: 1904193546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 1.57, y: 1, z: 1}
+  m_LocalScale: {x: 1.56, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 836577648}
   m_RootOrder: 0
@@ -1266,20 +1250,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1904193549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904193546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccaaa3a7a39b47c4f9f88e8893326f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgImg: {fileID: 1904193546}
-  resetPosX: -15.072
 --- !u!1 &1962117418
 GameObject:
   m_ObjectHideFlags: 0
