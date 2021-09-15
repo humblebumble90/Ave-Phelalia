@@ -6,10 +6,9 @@ public class BackgroundController : MonoBehaviour
 {
     public GameObject bgImg;
     public float resetPosX;
-    private float speed;
+    public float speed;
     private Vector3 pos;
     private Vector3 newPos;
-    private DataStorage dataStorage;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +35,6 @@ public class BackgroundController : MonoBehaviour
     }
     void initialize()
     {
-        dataStorage = new DataStorage();
         pos = new Vector3(0, 0, 0);
         if(bgImg != null)
         {
@@ -45,7 +43,6 @@ public class BackgroundController : MonoBehaviour
         switch(tag)
         {
             case "TitleScreenBg":
-                speed = dataStorage.getTitleScreenSpeed();
                 break;
             default:
                 break;
