@@ -34,15 +34,7 @@ public class BackgroundController : MonoBehaviour
             resetPosX1 = -pos2.x;
             resetPosX2 = pos1.x;
         }
-        switch (tag)
-        {
-            case "TitleScreenBg":
-                break;
-            default:
-                break;
-        }
         newPos = new Vector3(speed, 0, 0);
-        Debug.Log(tag);
         Debug.Log(speed);
     }
     void move()
