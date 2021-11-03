@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - TitleScreenBg
+  - Boundary
+  - Enemy
   layers:
   - Default
   - TransparentFX

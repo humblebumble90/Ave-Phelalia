@@ -19,18 +19,21 @@ public class Enemy1 : Enemy
     {
         move();
     }
-    public override void attack()
+    protected override void attack()
     {
     }
 
-    public override void destroy()
+    protected override void destroy()
     {
     }
 
-    public override void move()
+    protected override void move()
     {
         currPos = transform.position;
         currPos -= newPos;
         transform.position = currPos;
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
     }
 }

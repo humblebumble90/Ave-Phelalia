@@ -10,7 +10,8 @@ public abstract class Enemy:MonoBehaviour
     private bool ifBoss;
     private bool ifFire;
 
-    public abstract void move();
-    public abstract void attack();
-    public abstract void destroy();
+    protected abstract void move();
+    protected abstract void attack();
+    protected abstract void destroy();
+
 }

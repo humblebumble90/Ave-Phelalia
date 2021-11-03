@@ -87,9 +87,12 @@ public class playerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, boundary.Bottom);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        
+        if (col.tag == "Enemy")
+        {
+            Debug.Log("Hit");
+        }
     }
 
 }
