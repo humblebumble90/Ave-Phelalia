@@ -9,7 +9,11 @@ using System;
 public class GameController : MonoBehaviour
 {
     public GameObject ui;
+    public Text timeLabel;
     public GameObject buttons;
+    private float time;
+    public int stageTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkTime();
     }
     void initialize()
     {
@@ -44,6 +49,16 @@ public class GameController : MonoBehaviour
     public void exitBtnClicked()
     {
         Application.Quit();
+    }
+    void checkTime()
+    {
+        time += Time.deltaTime;
+        if(time >= 1.0f)
+        {
+            stageTime -= 1;
+            time = 0;
+        }
+        timeLabel.text = "Time: " + (stageTime);
     }
 
 }

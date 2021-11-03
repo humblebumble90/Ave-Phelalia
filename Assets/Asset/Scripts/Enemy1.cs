@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class Enemy1 : Enemy
 {
-    public Enemy1(float hp, float speed, float fireRate, bool ifFire, bool ifBoss):base(hp,speed,fireRate,ifFire,ifBoss)
+    public float _hp;
+    public float _speed;
+    public float _fireRate;
+    private Vector2 newPos;
+    private Vector2 currPos;
+    
+    private void Start()
     {
+        newPos = new Vector2(_speed, 0);
+        
+    }
+    private void Update()
+    {
+        move();
     }
     public override void attack()
     {
@@ -17,5 +29,8 @@ public class Enemy1 : Enemy
 
     public override void move()
     {
+        currPos = transform.position;
+        currPos -= newPos;
+        transform.position = currPos;
     }
 }
