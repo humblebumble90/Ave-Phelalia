@@ -10,7 +10,11 @@ public class playerController : MonoBehaviour
     public Boundary boundary;
     private int _hp;
     private int _score;
+    private bool collidable = true;
     private Vector2 newPos;
+    private float fireRate = 1.0f;
+    public GameObject spawningPoint;
+    public GameObject fire;
     public int hp
     {
         get
@@ -45,6 +49,7 @@ public class playerController : MonoBehaviour
     {
         move();
         checkBounds();
+        shoot();
     }
     void move()
     {
@@ -87,11 +92,32 @@ public class playerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, boundary.Bottom);
         }
     }
+    void shoot()
+    {
+        if(fireRate < 1.0f)
+        {
+            fireRate += Time.deltaTime;
+        }
+        if(Input.GetButton("Fire1") && fireRate >= 1.0f)
+        {
+            Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
+            fireRate = 0;
+        }
+    }
+    private IEnumerator getHit()
+    {
+        GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
+        collidable = false;
+        yield return new WaitForSeconds(1.0f);
+        GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
+        collidable = true;
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Enemy")
+        if (col.tag == "Enemy" && collidable == true)
         {
-            Debug.Log("Hit");
+            Debug.Log("Hit by enemy");
+            StartCoroutine(getHit());
         }
     }
 

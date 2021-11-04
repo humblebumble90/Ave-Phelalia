@@ -35,5 +35,9 @@ public class Enemy1 : Enemy
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if(col.tag == "Player")
+        {
+            Debug.Log("Hit the player");
+        }
     }
 }
