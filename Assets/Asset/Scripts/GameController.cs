@@ -13,6 +13,10 @@ public class GameController : MonoBehaviour
     public GameObject buttons;
     private float time;
     public int stageTime;
+    public GameObject e1;
+    public float e1SpawningRate;
+    private float e1SpawningCool = 0.0f;
+    private Transform e1SpawningPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         checkTime();
+        spawnEnemy();
     }
     void initialize()
     {
@@ -59,6 +64,19 @@ public class GameController : MonoBehaviour
             time = 0;
         }
         timeLabel.text = "Time: " + (stageTime);
+    }
+    void spawnEnemy()
+    {
+        if(e1SpawningCool < e1SpawningRate)
+        {
+            e1SpawningCool += Time.deltaTime;
+        }
+        else
+        {
+            Instantiate(e1);
+            Debug.Log("Enemy1 spawned");
+            e1SpawningCool = 0;
+        }
     }
 
 }

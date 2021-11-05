@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1521733588442394536}
   - component: {fileID: 5481002038683607232}
   - component: {fileID: 8021388294834081418}
+  - component: {fileID: 4727222022846514986}
   m_Layer: 0
   m_Name: Fire_Player
   m_TagString: Player
@@ -137,3 +138,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4727222022846514986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095965672262473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f887055ff18671e4caf5893e27b847d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.05
