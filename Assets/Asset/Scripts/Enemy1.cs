@@ -35,9 +35,17 @@ public class Enemy1 : Enemy
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.tag == "Player")
+        switch(col.tag)
         {
-            Debug.Log("Hit the player");
+            case "Player":
+                Debug.Log("Hit the player");
+                break;
+            case "PlayerFire":
+                Debug.Log("Hit by PlayerFire");
+                Destroy(this.gameObject);
+                break;
+            default:
+                break;
         }
     }
 }

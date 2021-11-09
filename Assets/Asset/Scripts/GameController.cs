@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -10,13 +11,16 @@ public class GameController : MonoBehaviour
 {
     public GameObject ui;
     public Text timeLabel;
+    public Text livesLabel;
+    public Text scoreLabel;
     public GameObject buttons;
     private float time;
     public int stageTime;
     public GameObject e1;
+    public GameObject player;
     public float e1SpawningRate;
     private float e1SpawningCool = 0.0f;
-    private Transform e1SpawningPoint;
+    public Boundary boundary;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,7 @@ public class GameController : MonoBehaviour
                 ui.SetActive(false);
                 break;
             case "Round1Scene":
+                spawnPlayer();
                 break;
 
         }
@@ -65,6 +70,10 @@ public class GameController : MonoBehaviour
         }
         timeLabel.text = "Time: " + (stageTime);
     }
+    void spawnPlayer()
+    {
+        Instantiate(player, new Vector3(-7,0,0), Quaternion.identity);
+    }
     void spawnEnemy()
     {
         if(e1SpawningCool < e1SpawningRate)
@@ -73,7 +82,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            Instantiate(e1);
+            float rndYPos = UnityEngine.Random.Range(boundary.Top,boundary.Bottom);
+            Instantiate(e1,new Vector3(boundary.Right,rndYPos,0),Quaternion.identity);
             Debug.Log("Enemy1 spawned");
             e1SpawningCool = 0;
         }

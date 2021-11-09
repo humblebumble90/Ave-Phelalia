@@ -27,7 +27,10 @@ public class BulletController : MonoBehaviour
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.tag == "enemy")
+            if (col.tag == "Enemy")
+            {
                 Debug.Log("Bullet hits enemy");
+                Destroy(this.gameObject);
+            }    
         }
 }

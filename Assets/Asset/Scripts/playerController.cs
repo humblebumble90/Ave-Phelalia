@@ -12,7 +12,8 @@ public class playerController : MonoBehaviour
     private int _score;
     private bool collidable = true;
     private Vector2 newPos;
-    private float fireRate = 1.0f;
+    private float fireTime;
+    private float fireRate = 0.5f;
     public GameObject spawningPoint;
     public GameObject fire;
     public int hp
@@ -93,14 +94,14 @@ public class playerController : MonoBehaviour
     }
     void shoot()
     {
-        if(fireRate < 1.0f)
+        if(fireTime < fireRate)
         {
-            fireRate += Time.deltaTime;
+            fireTime += Time.deltaTime;
         }
-        if(Input.GetButton("Fire1") && fireRate >= 1.0f)
+        if(Input.GetButton("Fire1") && fireTime >= fireRate)
         {
             Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
-            fireRate = 0;
+            fireTime = 0;
         }
     }
     private IEnumerator getHit()
