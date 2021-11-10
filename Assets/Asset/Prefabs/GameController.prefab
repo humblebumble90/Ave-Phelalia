@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 182988248165267978}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,3 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  timeLabel: {fileID: 0}
+  livesLabel: {fileID: 0}
+  scoreLabel: {fileID: 0}
+  buttons: {fileID: 0}
+  stageTime: 60
+  e1: {fileID: 7684082672293214453, guid: 60d42e94c89bc764b83af3b9acb502f2, type: 3}
+  player: {fileID: 2309833551609600267, guid: c898a738bead35d4b9b81fa282d92618, type: 3}
+  e1SpawningRate: 2
+  boundary:
+    Top: 2.38
+    Right: 7
+    Bottom: -2.38
+    Left: -7

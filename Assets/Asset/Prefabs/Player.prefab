@@ -99,8 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   freRate: 0
   speed:
-    min: -0.04
-    max: 0.04
+    min: -0.035
+    max: 0.035
   boundary:
     Top: 2.38
     Right: 7

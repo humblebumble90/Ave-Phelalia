@@ -21,6 +21,32 @@ public class GameController : MonoBehaviour
     public float e1SpawningRate;
     private float e1SpawningCool = 0.0f;
     public Boundary boundary;
+    private int _lives;
+    private int _score;
+    public int Lives
+    {
+        get
+        {
+            return _lives;
+        }
+        set
+        {
+            _lives = value;
+            scoreLabel.text = "Lives: " + _lives.ToString();
+        }
+    }
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+            scoreLabel.text = "Score: " + _score.ToString();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +67,11 @@ public class GameController : MonoBehaviour
         {
             case "StartScene":
                 ui.SetActive(false);
+                buttons.SetActive(true);
                 break;
             case "Round1Scene":
                 spawnPlayer();
                 break;
-
         }
     }
     public void startBtnClicked()
@@ -76,16 +102,25 @@ public class GameController : MonoBehaviour
     }
     void spawnEnemy()
     {
-        if(e1SpawningCool < e1SpawningRate)
+        switch (SceneManager.GetActiveScene().name)
         {
-            e1SpawningCool += Time.deltaTime;
-        }
-        else
-        {
-            float rndYPos = UnityEngine.Random.Range(boundary.Top,boundary.Bottom);
-            Instantiate(e1,new Vector3(boundary.Right,rndYPos,0),Quaternion.identity);
-            Debug.Log("Enemy1 spawned");
-            e1SpawningCool = 0;
+            case "StartScene":
+                break;
+            case "Round1Scene":
+                if (e1SpawningCool < e1SpawningRate)
+                {
+                    e1SpawningCool += Time.deltaTime;
+                }
+                else
+                {
+                    float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
+                    Instantiate(e1, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity);
+                    Debug.Log("Enemy1 spawned");
+                    e1SpawningCool = 0;
+                }
+                break;
+            default:
+                break;
         }
     }
 

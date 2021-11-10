@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : Enemy
+public class Enemy2 : Enemy
 {
     public float _hp;
     public float _speed;
@@ -11,15 +11,21 @@ public class Enemy1 : Enemy
     private Vector2 currPos;
     private GameController gc;
     private GameObject gco;
-    
-    private void Start()
+    private playerController player;
+
+
+    // Start is called before the first frame update
+    void Start()
     {
         newPos = new Vector2(_speed, 0);
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
-        
+        player = GameObject.FindWithTag("Player").GetComponent<playerController>();
+        transform.rotation.SetEulerRotation(0, 0, 45);
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         move();
     }
@@ -32,22 +38,5 @@ public class Enemy1 : Enemy
         currPos = transform.position;
         currPos -= newPos;
         transform.position = currPos;
-    }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        switch(col.tag)
-        {
-            case "Player":
-                Debug.Log("Hit the player");
-                break;
-            case "PlayerFire":
-                Debug.Log("Hit by PlayerFire");
-                Destroy(this.gameObject);
-                gc.Score += 100;
-                Debug.Log("Score: " + gc.Score);
-                break;
-            default:
-                break;
-        }
     }
 }
