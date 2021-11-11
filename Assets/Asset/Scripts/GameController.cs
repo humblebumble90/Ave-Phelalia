@@ -17,9 +17,12 @@ public class GameController : MonoBehaviour
     private float time;
     public int stageTime;
     public GameObject e1;
+    public GameObject e2;
     public GameObject player;
     public float e1SpawningRate;
     private float e1SpawningCool = 0.0f;
+    public float e2SpawningRate;
+    private float e2SpawningCool = 0.0f;
     public Boundary boundary;
     private int _lives;
     private int _score;
@@ -117,6 +120,17 @@ public class GameController : MonoBehaviour
                     Instantiate(e1, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity);
                     Debug.Log("Enemy1 spawned");
                     e1SpawningCool = 0;
+                }
+                if (e2SpawningCool < e2SpawningRate)
+                {
+                    e2SpawningCool += Time.deltaTime;
+                }
+                else
+                {
+                    float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
+                    Instantiate(e2, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity);
+                    Debug.Log("Enemy2 spawned");
+                    e2SpawningCool = 0;
                 }
                 break;
             default:

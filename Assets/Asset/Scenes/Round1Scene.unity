@@ -250,6 +250,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f18b9c419626684f8efeafb73fd556e, type: 3}
+--- !u!114 &107356916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 262123506575803883, guid: 8f18b9c419626684f8efeafb73fd556e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7362934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &289731615
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +558,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7362934}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1259340242 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 137699175420355249, guid: 8f18b9c419626684f8efeafb73fd556e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7362934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1665852505 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 137699176441589368, guid: 8f18b9c419626684f8efeafb73fd556e,
@@ -764,6 +788,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
+      propertyPath: e2
+      value: 
+      objectReference: {fileID: 6629504112772081112, guid: b56afa6b71ce2704d8af2aafc02d86da,
+        type: 3}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
       propertyPath: ui
       value: 
       objectReference: {fileID: 1665852505}
@@ -777,6 +807,21 @@ PrefabInstance:
       propertyPath: timeLabel
       value: 
       objectReference: {fileID: 370211054}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: livesLabel
+      value: 
+      objectReference: {fileID: 1259340242}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: scoreLabel
+      value: 
+      objectReference: {fileID: 107356916}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: e2SpawningRate
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 182988248165267979, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
       propertyPath: m_RootOrder

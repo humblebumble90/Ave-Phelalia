@@ -11,17 +11,20 @@ public class Enemy2 : Enemy
     private Vector2 currPos;
     private GameController gc;
     private GameObject gco;
-    private playerController player;
-
-
+    private GameObject player;
+    private Vector2 target;
+    private float horSpeed;
+    private float verSpeed;
+    private float diffX;
+    private float diffY;
+    private float angle;
+    private Vector2 thisSpeed;
     // Start is called before the first frame update
     void Start()
     {
         newPos = new Vector2(_speed, 0);
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
-        player = GameObject.FindWithTag("Player").GetComponent<playerController>();
-        transform.rotation.SetEulerRotation(0, 0, 45);
     }
 
     // Update is called once per frame
@@ -35,8 +38,23 @@ public class Enemy2 : Enemy
 
     protected override void move()
     {
+        if(player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            target = player.transform.position;
+            diffX = Mathf.Abs(transform.position.x - target.x);
+            diffY = Mathf.Abs(transform.position.y - target.y);
+            horSpeed = diffX > diffY ? _speed : diffX / diffY  * _speed;
+            verSpeed = diffX < diffY ? _speed : diffY / diffX * _speed;
+            horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
+            verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
+            thisSpeed = new Vector2(horSpeed, verSpeed);
+            angle = Mathf.Atan2(diffY, diffX) * Mathf.Deg2Rad; 
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+
+        }
         currPos = transform.position;
-        currPos -= newPos;
+        currPos += thisSpeed;
         transform.position = currPos;
     }
 }
