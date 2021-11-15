@@ -804,6 +804,16 @@ PrefabInstance:
       objectReference: {fileID: 1240966783}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
+      propertyPath: numOfE1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: numOfE2
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
       propertyPath: timeLabel
       value: 
       objectReference: {fileID: 370211054}
@@ -819,8 +829,13 @@ PrefabInstance:
       objectReference: {fileID: 107356916}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
+      propertyPath: e1SpawningRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
       propertyPath: e2SpawningRate
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 182988248165267979, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}

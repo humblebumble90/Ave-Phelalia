@@ -49,8 +49,17 @@ public class Enemy2 : Enemy
             horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
             verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
             thisSpeed = new Vector2(horSpeed, verSpeed);
-            angle = Mathf.Atan2(diffY, diffX) * Mathf.Deg2Rad; 
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+            angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
+            Debug.Log("Angle: " + angle);
+            if(target.y > transform.position.y)
+            {
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+            }
+            else
+            {
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+            
 
         }
         currPos = transform.position;
