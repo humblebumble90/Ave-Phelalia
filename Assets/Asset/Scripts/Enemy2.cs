@@ -7,7 +7,6 @@ public class Enemy2 : Enemy
     public float _hp;
     public float _speed;
     public float _fireRate;
-    private Vector2 newPos;
     private Vector2 currPos;
     private GameController gc;
     private GameObject gco;
@@ -22,7 +21,6 @@ public class Enemy2 : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        newPos = new Vector2(_speed, 0);
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
     }

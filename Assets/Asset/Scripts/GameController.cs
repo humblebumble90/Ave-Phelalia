@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     public Boundary boundary;
     private int _lives;
     private int _score;
+    private bool bossSpawned = false;
     public int Lives
     {
         get
