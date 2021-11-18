@@ -8,15 +8,21 @@ public class boss1_controller : Enemy
     public int _hp;
     public float _speed;
     public float _fireRate;
+    private float fireCooltime;
     private Vector2 currPos;
     private Vector2 newPos;
     private GameController gc;
     private GameObject gco;
     public Boundary boundary;
+    private BulletController bc;
     private bool pattern1;
     private float pattern1Length;
     private bool pattern2;
     private float pattern2Length;
+    public GameObject cannon1;
+    public GameObject cannon2;
+    public GameObject cannon3;
+    public GameObject enemyFire;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +30,7 @@ public class boss1_controller : Enemy
         gc = gco.GetComponent<GameController>();
         newPos = new Vector2(_speed, 0);
         pattern1 = true;
+        fireCooltime = _fireRate;
     }
 
     // Update is called once per frame
@@ -33,10 +40,6 @@ public class boss1_controller : Enemy
         attack();
         checkBounds();
     }
-    protected override void attack()
-    {
-    }
-
     protected override void move()
     {
         currPos = transform.position;
@@ -75,6 +78,22 @@ public class boss1_controller : Enemy
             }
         }
     }
+    protected override void attack()
+    {
+        if(fireCooltime < _fireRate)
+        {
+            fireCooltime += Time.deltaTime;
+        } 
+        else
+        {
+            enemyFire.GetComponent<BulletController>().setTarget(true);
+            Instantiate(enemyFire, cannon1.transform.position, Quaternion.identity);
+            Instantiate(enemyFire, cannon2.transform.position, Quaternion.identity);
+            Instantiate(enemyFire, cannon3.transform.position, Quaternion.identity);
+            fireCooltime = 0;
+            enemyFire.GetComponent<BulletController>().setTarget(false);
+        }
+    }
     void checkBounds()
     {
         if (transform.position.x <= boundary.Left)
@@ -93,6 +112,18 @@ public class boss1_controller : Enemy
         if (transform.position.y <= boundary.Bottom)
         {
             transform.position = new Vector3(transform.position.x, boundary.Bottom);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "PlayerFire")
+        {
+            Debug.Log("Shot by Player");
+            _hp -= 1;
+            if(_hp == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
