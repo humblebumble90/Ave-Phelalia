@@ -64,4 +64,12 @@ public class Enemy2 : Enemy
         currPos += thisSpeed;
         transform.position = currPos;
     }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.tag == "PlayerFire")
+        {
+            Destroy(this.gameObject);
+            gc.Score += 200;
+        }
+    }
 }

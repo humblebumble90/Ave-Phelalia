@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> e1s;
     public GameObject e2;
     private List<GameObject> e2s;
+    public GameObject boss1;
     public int numOfE1;
     public int numOfE2;
     public GameObject player;
@@ -31,18 +32,6 @@ public class GameController : MonoBehaviour
     private int _lives;
     private int _score;
     private bool bossSpawned = false;
-    public int Lives
-    {
-        get
-        {
-            return _lives;
-        }
-        set
-        {
-            _lives = value;
-            scoreLabel.text = "Lives: " + _lives.ToString();
-        }
-    }
     public int Score
     {
         get
@@ -53,6 +42,18 @@ public class GameController : MonoBehaviour
         {
             _score = value;
             scoreLabel.text = "Score: " + _score.ToString();
+        }
+    }
+    public int Lives
+    {
+        get
+        {
+            return _lives;
+        }
+        set
+        {
+            _lives = value;
+            livesLabel.text = "Life :" + _lives;
         }
     }
 
@@ -67,6 +68,7 @@ public class GameController : MonoBehaviour
     {
         checkTime();
         spawnEnemy();
+        //_lives = GameObject.FindWithTag("Player").GetComponent<playerController>().Lives;
     }
     void initialize()
     {
@@ -98,7 +100,10 @@ public class GameController : MonoBehaviour
     }
     void checkTime()
     {
-        time += Time.deltaTime;
+        if(stageTime > 0)
+        {
+            time += Time.deltaTime;
+        }
         if(time >= 1.0f)
         {
             stageTime -= 1;
@@ -118,14 +123,17 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < numOfE1; i++)
+            if(!bossSpawned)
             {
+                for (int i = 0; i < numOfE1; i++)
+                {
 
-                float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                e1s.Add(
-                    Instantiate(e1, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity));
-            }
-            e1SpawningCool = 0;
+                    float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
+                    e1s.Add(
+                        Instantiate(e1, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity));
+                }
+                e1SpawningCool = 0;
+            } 
         }
         if(e2SpawningCool < e2SpawningRate)
         {
@@ -133,15 +141,22 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < numOfE2; i++)
+            if(!bossSpawned)
             {
-                float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                e1s.Add(
-                    Instantiate(e2, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity));
-            }
-            e2SpawningCool = 0;
+                for (int i = 0; i < numOfE2; i++)
+                {
+                    float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
+                    e2s.Add(
+                        Instantiate(e2, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity));
+                }
+                e2SpawningCool = 0;
+            } 
         }
-        
+        if(stageTime == 0 && !bossSpawned)
+        {
+            bossSpawned = true;
+            Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
+        }
         //switch (SceneManager.GetActiveScene().name)
         //{
         //    case "StartScene":
@@ -173,7 +188,6 @@ public class GameController : MonoBehaviour
         //    default:
         //        break;
         //}
-
     }
 
 }

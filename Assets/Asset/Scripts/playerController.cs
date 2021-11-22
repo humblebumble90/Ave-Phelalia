@@ -5,18 +5,19 @@ using Util;
 
 public class playerController : MonoBehaviour
 {
-    public float freRate;
+    public float fireRate;
     public Speed speed;
     public Boundary boundary;
+    public int numOfLives;
     private int _hp;
-    private int _score;
     private bool collidable = true;
     private Vector2 newPos;
     private float fireTime;
-    private float fireRate = 0.5f;
     public GameObject spawningPoint;
     public GameObject fire;
-    public int hp
+    private GameObject gco;
+    private GameController gc;
+    public int HP
     {
         get
         {
@@ -27,21 +28,14 @@ public class playerController : MonoBehaviour
             _hp = value;
         }
     }
-    public int score
-    {
-        get
-        {
-            return _score;
-        }
-        set
-        {
-            _score = value;
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        _hp = 100;
+        gco = GameObject.FindGameObjectWithTag("GameController");
+        gc = gco.GetComponent<GameController>();
+        gc.Lives = numOfLives;
     }
 
     // Update is called once per frame
@@ -112,12 +106,17 @@ public class playerController : MonoBehaviour
         GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
         collidable = true;
     }
+    public void setFireRate(float rate)
+    {
+        fireRate = rate;
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Enemy" && collidable == true)
         {
             Debug.Log("Hit by enemy");
             StartCoroutine(getHit());
+            gc.Lives -= 1;
         }
     }
 

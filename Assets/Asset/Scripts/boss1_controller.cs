@@ -123,6 +123,7 @@ public class boss1_controller : Enemy
             if(_hp == 0)
             {
                 Destroy(this.gameObject);
+                gc.Score += 1000;
             }
         }
     }
