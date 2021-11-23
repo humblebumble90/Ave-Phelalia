@@ -29,15 +29,19 @@ public class GameController : MonoBehaviour
     public float e2SpawningRate;
     private float e2SpawningCool = 0.0f;
     public Boundary boundary;
+    [Header("Player initial setting")]
+    public int numOfLives;
+    [SerializeField]
     private int _lives;
+    [SerializeField]
     private int _score;
+    [SerializeField]
+    private int _hp;
+    private HpBarController hc;
     private bool bossSpawned = false;
     public int Score
     {
-        get
-        {
-            return _score;
-        }
+        get => _score;
         set
         {
             _score = value;
@@ -46,15 +50,17 @@ public class GameController : MonoBehaviour
     }
     public int Lives
     {
-        get
-        {
-            return _lives;
-        }
+        get => _lives;
         set
         {
             _lives = value;
             livesLabel.text = "Life :" + _lives;
         }
+    }
+    public int Hp
+    {
+        get => _hp;
+        set => _hp = value;
     }
 
     // Start is called before the first frame update
@@ -72,6 +78,8 @@ public class GameController : MonoBehaviour
     }
     void initialize()
     {
+        GameObject hco = GameObject.FindGameObjectWithTag("HpStatus");
+        hc = hco.GetComponent<HpBarController>();
         Debug.Log(SceneManager.GetActiveScene().name);
         switch(SceneManager.GetActiveScene().name)
         {
@@ -80,6 +88,8 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(true);
                 break;
             case "Round1Scene":
+                Lives = numOfLives;
+                Hp = 100;
                 spawnPlayer();
                 e1s = new List<GameObject>();
                 e2s = new List<GameObject>();
@@ -156,38 +166,36 @@ public class GameController : MonoBehaviour
         {
             bossSpawned = true;
             Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
+        }  
+    }
+    public void setHp(int hp)
+    {
+        if(Hp+hp > 0 && Hp+hp < 100)
+        {
+            Hp += hp;
         }
-        //switch (SceneManager.GetActiveScene().name)
-        //{
-        //    case "StartScene":
-        //        break;
-        //    case "Round1Scene":
-        //        if (e1SpawningCool < e1SpawningRate)
-        //        {
-        //            e1SpawningCool += Time.deltaTime;
-        //        }
-        //        else
-        //        {
-        //            float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-        //            Instantiate(e1, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity);
-        //            Debug.Log("Enemy1 spawned");
-        //            e1SpawningCool = 0;
-        //        }
-        //        if (e2SpawningCool < e2SpawningRate)
-        //        {
-        //            e2SpawningCool += Time.deltaTime;
-        //        }
-        //        else
-        //        {
-        //            float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-        //            Instantiate(e2, new Vector3(boundary.Right, rndYPos, 0), Quaternion.identity);
-        //            Debug.Log("Enemy2 spawned");
-        //            e2SpawningCool = 0;
-        //        }
-        //        break;
-        //    default:
-        //        break;
-        //}
+        else if(Hp + hp <= 0)
+        {
+            if(Lives > 0)
+            {
+                Lives -= 1;
+                Hp = 100;
+            }
+            else
+            {
+                playerDied();
+            }
+            hc.addHealth(1.0f);
+        }
+        else if(Hp + hp > 100)
+        {
+            Hp = 100;
+            hc.addHealth(1.0f);
+        }
+    }
+    public void playerDied()
+    {
+
     }
 
 }

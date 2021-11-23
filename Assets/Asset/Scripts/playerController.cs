@@ -8,34 +8,21 @@ public class playerController : MonoBehaviour
     public float fireRate;
     public Speed speed;
     public Boundary boundary;
-    public int numOfLives;
-    private int _hp;
     private bool collidable = true;
     private Vector2 newPos;
     private float fireTime;
     public GameObject spawningPoint;
     public GameObject fire;
-    private GameObject gco;
     private GameController gc;
-    public int HP
-    {
-        get
-        {
-            return _hp;
-        }
-        set
-        {
-            _hp = value;
-        }
-    }
+    private HpBarController hc;
 
     // Start is called before the first frame update
     void Start()
     {
-        _hp = 100;
-        gco = GameObject.FindGameObjectWithTag("GameController");
+        GameObject gco = GameObject.FindGameObjectWithTag("GameController");
+        GameObject hpo = GameObject.FindGameObjectWithTag("HpStatus");
         gc = gco.GetComponent<GameController>();
-        gc.Lives = numOfLives;
+        hc = hpo.GetComponent<HpBarController>();
     }
 
     // Update is called once per frame
@@ -102,6 +89,8 @@ public class playerController : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
         collidable = false;
+        gc.setHp(-20);
+        hc.SetDamage(20);
         yield return new WaitForSeconds(1.0f);
         GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
         collidable = true;
@@ -116,7 +105,7 @@ public class playerController : MonoBehaviour
         {
             Debug.Log("Hit by enemy");
             StartCoroutine(getHit());
-            gc.Lives -= 1;
+            //gc.Lives -= 1;
         }
     }
 
