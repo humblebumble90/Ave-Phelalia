@@ -23,6 +23,7 @@ public class Enemy2 : Enemy
     {
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
+        calculateTarget();
     }
 
     // Update is called once per frame
@@ -36,33 +37,48 @@ public class Enemy2 : Enemy
 
     protected override void move()
     {
-        if(player == null)
-        {
-            player = GameObject.FindWithTag("Player");
-            target = player.transform.position;
-            diffX = Mathf.Abs(transform.position.x - target.x);
-            diffY = Mathf.Abs(transform.position.y - target.y);
-            horSpeed = diffX > diffY ? _speed : diffX / diffY  * _speed;
-            verSpeed = diffX < diffY ? _speed : diffY / diffX * _speed;
-            horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
-            verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
-            thisSpeed = new Vector2(horSpeed, verSpeed);
-            angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
-            Debug.Log("Angle: " + angle);
-            if(target.y > transform.position.y)
-            {
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
-            }
-            else
-            {
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            }
-            
-
-        }
         currPos = transform.position;
         currPos += thisSpeed;
         transform.position = currPos;
+    }
+    private void calculateTarget()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            if(player != null)
+            {
+                target = player.transform.position;
+                diffX = Mathf.Abs(transform.position.x - target.x);
+                diffY = Mathf.Abs(transform.position.y - target.y);
+                horSpeed = diffX > diffY ? _speed : diffX / diffY * _speed;
+                verSpeed = diffX < diffY ? _speed : diffY / diffX * _speed;
+                horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
+                verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
+                thisSpeed = new Vector2(horSpeed, verSpeed);
+                angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
+                if (target.y > transform.position.y)
+                {
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
+            }
+            else
+            {
+                target = new Vector2(0,0);
+                diffX = Mathf.Abs(transform.position.x - target.x);
+                diffY = Mathf.Abs(transform.position.y - target.y);
+                horSpeed = diffX > diffY ? _speed : diffX / diffY * _speed;
+                verSpeed = diffX < diffY ? _speed : diffY / diffX * _speed;
+                horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
+                verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
+                thisSpeed = new Vector2(horSpeed, verSpeed);
+                angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D col)
     {

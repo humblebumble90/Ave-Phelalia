@@ -54,13 +54,17 @@ public class HpBarController : MonoBehaviour
     }
     public void addHealth(float add)
     {
-        if(health + add < 1.0f)
+        if(0<health + add && health + add < 1.0f)
         {
             health += add;
         }
-        else
+        else if(health + add >= 1.0f)
         {
             health = 1.0f;
+        }
+        else if(health + add <= 0.0f)
+        {
+            health = 0;
         }
     }
 

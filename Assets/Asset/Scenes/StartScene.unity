@@ -552,6 +552,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 940207521, guid: 8f18b9c419626684f8efeafb73fd556e, type: 3}
+      propertyPath: m_TagString
+      value: HpStatus
+      objectReference: {fileID: 0}
     - target: {fileID: 137699175121233030, guid: 8f18b9c419626684f8efeafb73fd556e,
         type: 3}
       propertyPath: m_IsActive

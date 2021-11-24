@@ -78,8 +78,6 @@ public class GameController : MonoBehaviour
     }
     void initialize()
     {
-        GameObject hco = GameObject.FindGameObjectWithTag("HpStatus");
-        hc = hco.GetComponent<HpBarController>();
         Debug.Log(SceneManager.GetActiveScene().name);
         switch(SceneManager.GetActiveScene().name)
         {
@@ -88,11 +86,13 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(true);
                 break;
             case "Round1Scene":
+                GameObject hco = GameObject.FindGameObjectWithTag("HpStatus");
+                hc = hco.GetComponent<HpBarController>();
+                e1s = new List<GameObject>();
+                e2s = new List<GameObject>();
                 Lives = numOfLives;
                 Hp = 100;
                 spawnPlayer();
-                e1s = new List<GameObject>();
-                e2s = new List<GameObject>();
                 break;
         }
     }
@@ -176,22 +176,30 @@ public class GameController : MonoBehaviour
         }
         else if(Hp + hp <= 0)
         {
+            hc.addHealth(-1.0f);
             if(Lives > 0)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<playerController>().destroyPlayer();
                 Lives -= 1;
-                Hp = 100;
+                StartCoroutine(respawnPlayer());
             }
             else
             {
                 playerDied();
             }
-            hc.addHealth(1.0f);
         }
         else if(Hp + hp > 100)
         {
             Hp = 100;
             hc.addHealth(1.0f);
         }
+    }
+    private IEnumerator respawnPlayer()
+    {
+        yield return new WaitForSeconds(3.0f);
+        hc.addHealth(1.0f);
+        Hp = 100;
+        spawnPlayer();
     }
     public void playerDied()
     {

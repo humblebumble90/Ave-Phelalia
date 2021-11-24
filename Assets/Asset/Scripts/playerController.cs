@@ -99,6 +99,11 @@ public class playerController : MonoBehaviour
     {
         fireRate = rate;
     }
+    public void destroyPlayer()
+    {
+        Destroy(this.gameObject);
+    }
+    public bool getCollidable() => collidable;
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Enemy" && collidable == true)
