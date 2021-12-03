@@ -302,6 +302,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1718376933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1898301379, guid: 8f18b9c419626684f8efeafb73fd556e,
+    type: 3}
+  m_PrefabInstance: {fileID: 137699176514629036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1788222391
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +760,12 @@ PrefabInstance:
       objectReference: {fileID: 352615145}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
+      propertyPath: storage
+      value: 
+      objectReference: {fileID: 11400000, guid: 932311927593010419ef3c191d22e3ce,
+        type: 2}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
       propertyPath: timeLabel
       value: 
       objectReference: {fileID: 1445954364}
@@ -767,6 +779,16 @@ PrefabInstance:
       propertyPath: scoreLabel
       value: 
       objectReference: {fileID: 2027390364}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: backgrounds
+      value: 
+      objectReference: {fileID: 836577647}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: gameOverSceneButtons
+      value: 
+      objectReference: {fileID: 1718376933}
     - target: {fileID: 182988248165267979, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
       propertyPath: m_RootOrder

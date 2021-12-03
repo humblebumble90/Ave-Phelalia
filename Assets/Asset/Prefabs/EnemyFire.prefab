@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6624223866589079753}
   m_Layer: 0
   m_Name: EnemyFire
-  m_TagString: Enemy
+  m_TagString: EnemyFire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f887055ff18671e4caf5893e27b847d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.05
+  _speed: 0.03
   isTargetting: 0

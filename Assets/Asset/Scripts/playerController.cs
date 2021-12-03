@@ -75,14 +75,17 @@ public class playerController : MonoBehaviour
     }
     void shoot()
     {
-        if(fireTime < fireRate)
+        if (fireRate >= fireTime)
         {
             fireTime += Time.deltaTime;
         }
-        if(Input.GetButton("Fire1") && fireTime >= fireRate)
+        else
         {
-            Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
-            fireTime = 0;
+            if (Input.GetButton("Fire1"))
+            {
+                Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
+                fireTime = 0;
+            }
         }
     }
     private IEnumerator getHit()
@@ -106,11 +109,11 @@ public class playerController : MonoBehaviour
     public bool getCollidable() => collidable;
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Enemy" && collidable == true)
+        if (col.tag == "Enemy" && collidable == true
+            || col.tag == "EnemyFire" && collidable == true)
         {
-            Debug.Log("Hit by enemy");
+            Debug.Log("Hit by enemy");   
             StartCoroutine(getHit());
-            //gc.Lives -= 1;
         }
     }
 

@@ -1,29 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enemy1 : Enemy
+public class Enemy3 : Enemy
 {
-    public int _hp;
+    public GameObject spawnPoint;
+    public GameObject enemyFire;
+    public float _hp;
     public float _speed;
+    public float _fireRate;
+    private float _fireCooltime;
     private Vector2 newPos;
     private Vector2 currPos;
     private GameController gc;
     private GameObject gco;
-    
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         newPos = new Vector2(_speed, 0);
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
-        
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         move();
+        attack();
     }
+
     protected override void attack()
     {
+        if (_fireRate >= _fireCooltime)
+        {
+            _fireCooltime += Time.deltaTime;
+        }
+        else
+        {
+            Instantiate(enemyFire, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            _fireCooltime = 0;
+        }
     }
 
     protected override void move()
@@ -32,9 +47,10 @@ public class Enemy1 : Enemy
         currPos -= newPos;
         transform.position = currPos;
     }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        switch(col.tag)
+        switch (col.tag)
         {
             case "Player":
                 Debug.Log("Hit the player");
@@ -45,7 +61,7 @@ public class Enemy1 : Enemy
                 if(_hp <= 0)
                 {
                     Destroy(this.gameObject);
-                    gc.Score += 100;
+                    gc.Score += 300;
                     Debug.Log("Score: " + gc.Score);
                 }
                 break;

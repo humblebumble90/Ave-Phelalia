@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy2 : Enemy
 {
-    public float _hp;
+    public int _hp;
     public float _speed;
     public float _fireRate;
     private Vector2 currPos;
@@ -84,8 +84,12 @@ public class Enemy2 : Enemy
     {
         if(col.tag == "PlayerFire")
         {
-            Destroy(this.gameObject);
-            gc.Score += 200;
+            _hp -= 1;
+            if(_hp <= 0)
+            {
+                Destroy(this.gameObject);
+                gc.Score += 200;
+            }
         }
     }
 }

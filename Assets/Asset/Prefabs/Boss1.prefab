@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 50
   _speed: 0.025
-  _fireRate: 1
+  _fireRate: 2
   boundary:
     Top: 1.9
     Right: 5.4

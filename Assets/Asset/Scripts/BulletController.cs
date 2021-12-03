@@ -19,7 +19,7 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         newPos = new Vector2(_speed, 0);
-        if (this.tag =="Enemy")
+        if (this.tag =="EnemyFire")
         {
             if (isTargetting)
             {
@@ -88,7 +88,14 @@ public class BulletController : MonoBehaviour
                 horSpeed = transform.position.x < target.x ? horSpeed : -horSpeed;
                 verSpeed = transform.position.y < target.y ? verSpeed : -verSpeed;
                 newPos = new Vector2(horSpeed, verSpeed);
-                angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
+                if(target.x < transform.position.x)
+                {
+                    angle = Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg;
+                }
+                else
+                {
+                    angle = 180.0f - (Mathf.Atan2(diffY, diffX) * Mathf.Rad2Deg);
+                }
                 if (target.y > transform.position.y)
                 {
                     transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
