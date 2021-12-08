@@ -116,12 +116,14 @@ public class BulletController : MonoBehaviour
         
     {      
         if (this.tag == "PlayerFire" && col.tag == "Enemy")       
-        {        
-            Destroy(this.gameObject);    
+        {
+            Destroy(this.gameObject);
+            Instantiate(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().explosion, transform.position, Quaternion.identity);
         }
         if(this.tag == "EnemyFire" && col.tag =="Player")
         {
             Destroy(this.gameObject);
+            Instantiate(GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().explosion, transform.position, Quaternion.identity);
         }
     }
 }

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9b291483c33fd468d1425b1b7a0822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.5
+  fireRate: 0.33
   speed:
     min: -0.035
     max: 0.035
@@ -106,7 +106,6 @@ MonoBehaviour:
     Right: 7
     Bottom: -2.38
     Left: -7
-  numOfLives: 3
   spawningPoint: {fileID: 2309833552222586675}
   fire: {fileID: 8095965672262473849, guid: 190c21893459bf34c9a05354082c20dc, type: 3}
 --- !u!50 &2309833551609600270

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 1
-  _speed: 0.025
+  _speed: 0.05
   _fireRate: 0
 --- !u!60 &-8843557795867126841
 PolygonCollider2D:

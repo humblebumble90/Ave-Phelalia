@@ -73,6 +73,7 @@ public class Enemy4 : Enemy
                 break;
             case "PlayerFire":
                 Debug.Log("Hit by PlayerFire");
+                gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
                 _hp -= 1;
                 if (_hp <= 0)
                 {

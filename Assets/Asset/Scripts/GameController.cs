@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> e4s;
     public GameObject boss1;
     public GameObject boss2;
+    public GameObject boss3;
     private bool bossSpawned = false;
     public int numOfE1;
     public int numOfE2;
@@ -55,6 +56,9 @@ public class GameController : MonoBehaviour
     private int _hp;
     private GameObject hco;
     private HpBarController hc;
+    [Header("Audio Sources")]
+    public AudioSource[] audioSources;
+    public GameObject explosion;
     public int Score
     {
         get => _score;
@@ -102,6 +106,8 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(true);
                 gameOverSceneButtons.SetActive(false);
                 backgrounds.SetActive(true);
+                audioSources[(int)SoundClip.START_SCENE_THEME].loop = true;
+                audioSources[(int)SoundClip.START_SCENE_THEME].Play();
                 break;
             case "Round1Scene":
                 ui.SetActive(true);
@@ -113,9 +119,12 @@ public class GameController : MonoBehaviour
                 stage = 1;
                 e1s = new List<GameObject>();
                 e2s = new List<GameObject>();
-                Lives = numOfLives;
+                storage.lives = numOfLives;
+                Lives = storage.lives;
                 Hp = 100;
                 spawnPlayer();
+                audioSources[(int)SoundClip.GAME_THEME1].loop = true;
+                audioSources[(int)SoundClip.GAME_THEME1].Play();
                 break;
             case "Round2Scene":
                 ui.SetActive(true);
@@ -128,9 +137,11 @@ public class GameController : MonoBehaviour
                 e1s = new List<GameObject>();
                 e2s = new List<GameObject>();
                 e3s = new List<GameObject>();
-                Lives = numOfLives;
+                Lives = storage.lives;
                 Hp = 100;
                 spawnPlayer();
+                audioSources[(int)SoundClip.GAME_THEME2].loop = true;
+                audioSources[(int)SoundClip.GAME_THEME2].Play();
                 break;
             case "Round3Scene":
                 ui.SetActive(true);
@@ -144,15 +155,19 @@ public class GameController : MonoBehaviour
                 e2s = new List<GameObject>();
                 e3s = new List<GameObject>();
                 e4s = new List<GameObject>();
-                Lives = numOfLives;
+                Lives = storage.lives;
                 Hp = 100;
                 spawnPlayer();
+                audioSources[(int)SoundClip.GAME_THEME3].loop = true;
+                audioSources[(int)SoundClip.GAME_THEME3].Play();
                 break;
             case "GameoverScene":
                 ui.SetActive(false);
                 buttons.SetActive(false);
                 gameOverSceneButtons.SetActive(true);
                 backgrounds.SetActive(false);
+                audioSources[(int)SoundClip.GAME_OVER_THEME].loop = true;
+                audioSources[(int)SoundClip.GAME_OVER_THEME].Play();
                 break;
             default:
                 break;
@@ -206,14 +221,14 @@ public class GameController : MonoBehaviour
     }
     void spawnEnemy()
     {
-        //Enemy1 spawning
-        if (e1SpawningCool < e1SpawningRate)
+            //Enemy1 spawning
+            if (e1SpawningCool < e1SpawningRate)
         {
             e1SpawningCool += Time.deltaTime;
         }
         else
         {
-            if(!bossSpawned)
+            if(!bossSpawned && stage > 0)
             {
                 for (int i = 0; i < numOfE1; i++)
                 {
@@ -232,12 +247,12 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            if(!bossSpawned)
+            if(!bossSpawned && stage > 0)
             {
                 for (int i = 0; i < numOfE2; i++)
                 {
                     float rndXpos = UnityEngine.Random.Range(boundary.Right, boundary.Right + 2.0f);
-                    float rndYPos = UnityEngine.Random.Range(boundary.Top - 2.0f, boundary.Bottom + 2.0f);
+                    float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
                     e2s.Add(
                         Instantiate(e2, new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
                 }
@@ -294,15 +309,25 @@ public class GameController : MonoBehaviour
             }
         }
         //Boss spawning
-        if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round1Scene")
+        if (stageTime == 0 && !bossSpawned)
         {
-            bossSpawned = true;
-            Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
-        }
-        if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round2Scene")
-        {
-            bossSpawned = true;
-            Instantiate(boss2, new Vector2(boundary.Right, 0), Quaternion.identity);
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Round1Scene":
+                    bossSpawned = true;
+                    Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    break;
+                case "Round2Scene":
+                    bossSpawned = true;
+                    Instantiate(boss2, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    break;
+                case "Round3Scene":
+                    bossSpawned = true;
+                    Instantiate(boss3, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public void setHp(int hp)
@@ -364,10 +389,12 @@ public class GameController : MonoBehaviour
         {
             case "Round1Scene":
                 storage.lastScene = 2;
+                storage.lives = Lives;
                 SceneManager.LoadScene("Round2Scene");
                 break;
             case "Round2Scene":
                 storage.lastScene = 3;
+                storage.lives = Lives;
                 SceneManager.LoadScene("Round3Scene");
                 break;
             default:

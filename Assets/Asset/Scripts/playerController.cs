@@ -15,6 +15,7 @@ public class playerController : MonoBehaviour
     public GameObject fire;
     private GameController gc;
     private HpBarController hc;
+    private GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class playerController : MonoBehaviour
         GameObject hpo = GameObject.FindGameObjectWithTag("HpStatus");
         gc = gco.GetComponent<GameController>();
         hc = hpo.GetComponent<HpBarController>();
+        explosion = gc.explosion;
     }
 
     // Update is called once per frame
@@ -84,6 +86,7 @@ public class playerController : MonoBehaviour
             if (Input.GetButton("Fire1"))
             {
                 Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
+                gc.audioSources[(int)SoundClip.FIRE_SOUND].Play();
                 fireTime = 0;
             }
         }
@@ -112,7 +115,7 @@ public class playerController : MonoBehaviour
         if (col.tag == "Enemy" && collidable == true
             || col.tag == "EnemyFire" && collidable == true)
         {
-            Debug.Log("Hit by enemy");   
+            gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
             StartCoroutine(getHit());
         }
     }

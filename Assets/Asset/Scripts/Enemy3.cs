@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 public class Enemy3 : Enemy
 {
     public GameObject spawnPoint;
@@ -36,7 +37,9 @@ public class Enemy3 : Enemy
         }
         else
         {
+            enemyFire.GetComponent<BulletController>().setTarget(true);
             Instantiate(enemyFire, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            enemyFire.GetComponent<BulletController>().setTarget(false);
             _fireCooltime = 0;
         }
     }
@@ -57,6 +60,7 @@ public class Enemy3 : Enemy
                 break;
             case "PlayerFire":
                 Debug.Log("Hit by PlayerFire");
+                gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
                 _hp -= 1;
                 if(_hp <= 0)
                 {

@@ -134,6 +134,7 @@ public class Boss2Controller : Enemy
         if (col.tag == "PlayerFire")
         {
             Debug.Log("Shot by Player");
+            gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
             _hp -= 1;
             if (_hp <= 0)
             {

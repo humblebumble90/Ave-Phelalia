@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 
 public class Enemy2 : Enemy
 {
@@ -84,6 +85,7 @@ public class Enemy2 : Enemy
     {
         if(col.tag == "PlayerFire")
         {
+            gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
             _hp -= 1;
             if(_hp <= 0)
             {

@@ -16,7 +16,7 @@ public class HpBarController : MonoBehaviour
     /// </summary>
     /// 
     private float health = 1.0f;
-    public float damage = 0.0f;
+    private float damage = 0.0f;
     public float damageStep = 0.01f;
 
     public Transform hpBarFront;
@@ -40,14 +40,14 @@ public class HpBarController : MonoBehaviour
             Mathf.Lerp(hpBarDmg.transform.localScale.x, hpBarFront.localScale.x, Time.deltaTime * 2);
 
         hpBarDmg.localScale = new Vector3(hpBarLerp, 1.0f, 1.0f);
-        hpBarFront.localScale = new Vector3(health, 1.0f, 1.0f);
+        //hpBarFront.localScale = new Vector3(health, 1.0f, 1.0f);
     }
 
     public void SetDamage(float dmg)
     {
         if (health > 0.0f)
         {
-            damage = dmg/100;
+            damage = dmg * 0.01f;
             StartCoroutine(TakeDamage());
         }
 
@@ -66,6 +66,7 @@ public class HpBarController : MonoBehaviour
         {
             health = 0;
         }
+        hpBarFront.localScale = new Vector3(health, 1.0f, 1.0f);
     }
 
     //Coroutine
@@ -76,9 +77,10 @@ public class HpBarController : MonoBehaviour
             health -= damageStep;
             if (health < 0.0f)
             {
-                health = 0;
+                health = 0f;
             }
             hpBarFront.localScale = new Vector3(health, 1.0f, 1.0f);
+            Debug.Log("Damaged health: " + health);
             yield return null;
         }
 

@@ -31,8 +31,6 @@ public class BackgroundController : MonoBehaviour
             //pos = transform.position;
             pos1 = bgImg1.transform.position;
             pos2 = bgImg2.transform.position;
-            Debug.Log("ResetPosx1: " + resetPosX1);
-            Debug.Log("ResestPosx2: " + resetPosX2);
         }
         newPos = new Vector2(speed, 0);
         Debug.Log(speed);
