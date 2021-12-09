@@ -10,8 +10,8 @@ public class BackgroundController : MonoBehaviour
     private Vector3 pos1;
     private Vector3 pos2;
     private Vector3 newPos;
-    private float resetPosX1;
-    private float resetPosX2;
+    public float resetPosX1;
+    public float resetPosX2;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +31,8 @@ public class BackgroundController : MonoBehaviour
             //pos = transform.position;
             pos1 = bgImg1.transform.position;
             pos2 = bgImg2.transform.position;
-            resetPosX1 = -pos2.x;
-            resetPosX2 = pos1.x;
         }
-        newPos = new Vector3(speed, 0, 0);
+        newPos = new Vector2(speed, 0);
         Debug.Log(speed);
     }
     void move()
@@ -45,7 +43,7 @@ public class BackgroundController : MonoBehaviour
         }
         else
         {
-            bgImg1.transform.position = pos1;
+            bgImg1.transform.position = pos2;
         }
 
         if(bgImg2.transform.position.x > resetPosX2)

@@ -8,6 +8,8 @@ TagManager:
   - Boundary
   - Enemy
   - PlayerFire
+  - HpStatus
+  - EnemyFire
   layers:
   - Default
   - TransparentFX

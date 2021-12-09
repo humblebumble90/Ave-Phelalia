@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2976904775679140963}
   m_Layer: 0
   m_Name: enemy2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7aeef7d1e84944c9573f526b0620eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 0
-  _speed: 0.025
+  _hp: 1
+  _speed: 0.05
   _fireRate: 0
 --- !u!60 &-8843557795867126841
 PolygonCollider2D:

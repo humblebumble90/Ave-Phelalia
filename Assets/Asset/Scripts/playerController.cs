@@ -5,43 +5,26 @@ using Util;
 
 public class playerController : MonoBehaviour
 {
-    public float freRate;
+    public float fireRate;
     public Speed speed;
     public Boundary boundary;
-    private int _hp;
-    private int _score;
     private bool collidable = true;
     private Vector2 newPos;
     private float fireTime;
-    private float fireRate = 0.5f;
     public GameObject spawningPoint;
     public GameObject fire;
-    public int hp
-    {
-        get
-        {
-            return _hp;
-        }
-        set
-        {
-            _hp = value;
-        }
-    }
-    public int score
-    {
-        get
-        {
-            return _score;
-        }
-        set
-        {
-            _score = value;
-        }
-    }
+    private GameController gc;
+    private HpBarController hc;
+    private GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        GameObject gco = GameObject.FindGameObjectWithTag("GameController");
+        GameObject hpo = GameObject.FindGameObjectWithTag("HpStatus");
+        gc = gco.GetComponent<GameController>();
+        hc = hpo.GetComponent<HpBarController>();
+        explosion = gc.explosion;
     }
 
     // Update is called once per frame
@@ -94,29 +77,45 @@ public class playerController : MonoBehaviour
     }
     void shoot()
     {
-        if(fireTime < fireRate)
+        if (fireRate >= fireTime)
         {
             fireTime += Time.deltaTime;
         }
-        if(Input.GetButton("Fire1") && fireTime >= fireRate)
+        else
         {
-            Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
-            fireTime = 0;
+            if (Input.GetButton("Fire1"))
+            {
+                Instantiate(fire, spawningPoint.transform.position, spawningPoint.transform.rotation);
+                gc.audioSources[(int)SoundClip.FIRE_SOUND].Play();
+                fireTime = 0;
+            }
         }
     }
     private IEnumerator getHit()
     {
         GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
         collidable = false;
+        gc.setHp(-20);
+        hc.SetDamage(20);
         yield return new WaitForSeconds(1.0f);
         GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 1f);
         collidable = true;
     }
+    public void setFireRate(float rate)
+    {
+        fireRate = rate;
+    }
+    public void destroyPlayer()
+    {
+        Destroy(this.gameObject);
+    }
+    public bool getCollidable() => collidable;
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Enemy" && collidable == true)
+        if (col.tag == "Enemy" && collidable == true
+            || col.tag == "EnemyFire" && collidable == true)
         {
-            Debug.Log("Hit by enemy");
+            gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
             StartCoroutine(getHit());
         }
     }

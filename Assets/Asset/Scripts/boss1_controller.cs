@@ -15,9 +15,7 @@ public class boss1_controller : Enemy
     private GameObject gco;
     public Boundary boundary;
     private BulletController bc;
-    private bool pattern1;
     private float pattern1Length;
-    private bool pattern2;
     private float pattern2Length;
     public GameObject cannon1;
     public GameObject cannon2;
@@ -28,8 +26,7 @@ public class boss1_controller : Enemy
     {
         gco = GameObject.FindWithTag("GameController");
         gc = gco.GetComponent<GameController>();
-        newPos = new Vector2(_speed, 0);
-        pattern1 = true;
+        newPos = new Vector2(0, _speed);
         fireCooltime = _fireRate;
     }
 
@@ -45,38 +42,11 @@ public class boss1_controller : Enemy
         currPos = transform.position;
         currPos -= newPos;
         transform.position = currPos;
-        if (pattern1)
-        {
-            if(transform.position.x <= boundary.Left || transform.position.x >= boundary.Right)
-            {
-                _speed = -_speed;
-                newPos = new Vector2(_speed, 0);
-            }
-            pattern1Length += Time.deltaTime;
-            if(pattern1Length >= 5.0f)
-            {
-                pattern1 = false;
-                pattern2 = true;
-                pattern1Length = 0f;
-                newPos = new Vector2(0, _speed);
-            }
-        }
-        if(pattern2)
-        {
-            if (transform.position.y <= boundary.Bottom || transform.position.y >= boundary.Top)
+        if (transform.position.y <= boundary.Bottom || transform.position.y >= boundary.Top)
             {
                 _speed = -_speed;
                 newPos = new Vector2(0, _speed);
             }
-            pattern2Length += Time.deltaTime;
-            if (pattern2Length >= 5.0f)
-            {
-                pattern2 = false;
-                pattern1 = true;
-                pattern2Length = 0f;
-                newPos = new Vector2(_speed, 0);
-            }
-        }
     }
     protected override void attack()
     {
@@ -119,10 +89,13 @@ public class boss1_controller : Enemy
         if(col.tag == "PlayerFire")
         {
             Debug.Log("Shot by Player");
+            gc.audioSources[(int)SoundClip.EXPLOSION_SOUND].Play();
             _hp -= 1;
-            if(_hp == 0)
+            if(_hp <= 0)
             {
                 Destroy(this.gameObject);
+                gc.Score += 1000;
+                gc.clearStage();
             }
         }
     }
