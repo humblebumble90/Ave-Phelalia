@@ -298,6 +298,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7362934}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7362936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2102528069, guid: 8f18b9c419626684f8efeafb73fd556e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7362934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &107356916 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 262123506575803883, guid: 8f18b9c419626684f8efeafb73fd556e,
@@ -767,7 +779,7 @@ PrefabInstance:
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
       propertyPath: stageTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
@@ -789,6 +801,11 @@ PrefabInstance:
       propertyPath: backgrounds
       value: 
       objectReference: {fileID: 836577647}
+    - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
+        type: 3}
+      propertyPath: clearMessageLabel
+      value: 
+      objectReference: {fileID: 7362936}
     - target: {fileID: 182988248165267978, guid: 5fba99d2115518c428e167a06a3424e1,
         type: 3}
       propertyPath: gameOverSceneButtons

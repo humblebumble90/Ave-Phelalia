@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Asset/Scenes/StartScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Asset/Scenes/Round1Scene.unity
     guid: e2af545ce44505248a18f3029a7a2bdf
@@ -23,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Asset/Scenes/GameoverScene.unity
     guid: c12f9fbfc88180b43bf651595e45bcf4
+  - enabled: 1
+    path: Assets/Asset/Scenes/ClearScene.unity
+    guid: 6f5832c7d7818b14c91988bdb4d4ca08
   m_configObjects: {}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Storage
   m_EditorClassIdentifier: 
   hp: 0
-  lives: 0
+  lives: 3
   score: 0
   powerUp: 0
   lastScene: 1

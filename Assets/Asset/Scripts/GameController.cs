@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public Text timeLabel;
     public Text livesLabel;
     public Text scoreLabel;
+    public Text clearMessageLabel;
     public GameObject buttons;
     public GameObject gameOverSceneButtons;
     public GameObject backgrounds;
@@ -106,6 +107,7 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(true);
                 gameOverSceneButtons.SetActive(false);
                 backgrounds.SetActive(true);
+                clearMessageLabel.gameObject.SetActive(false);
                 audioSources[(int)SoundClip.START_SCENE_THEME].loop = true;
                 audioSources[(int)SoundClip.START_SCENE_THEME].Play();
                 break;
@@ -114,13 +116,14 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(false);
                 gameOverSceneButtons.SetActive(false);
                 backgrounds.SetActive(true);
+                clearMessageLabel.gameObject.SetActive(false);
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 1;
                 e1s = new List<GameObject>();
                 e2s = new List<GameObject>();
-                storage.lives = numOfLives;
                 Lives = storage.lives;
+                Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME1].loop = true;
@@ -131,6 +134,7 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(false);
                 gameOverSceneButtons.SetActive(false);
                 backgrounds.SetActive(true);
+                clearMessageLabel.gameObject.SetActive(false);
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 2;
@@ -138,6 +142,7 @@ public class GameController : MonoBehaviour
                 e2s = new List<GameObject>();
                 e3s = new List<GameObject>();
                 Lives = storage.lives;
+                Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME2].loop = true;
@@ -148,6 +153,7 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(false);
                 gameOverSceneButtons.SetActive(false);
                 backgrounds.SetActive(true);
+                clearMessageLabel.gameObject.SetActive(false);
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 3;
@@ -156,6 +162,7 @@ public class GameController : MonoBehaviour
                 e3s = new List<GameObject>();
                 e4s = new List<GameObject>();
                 Lives = storage.lives;
+                Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME3].loop = true;
@@ -166,8 +173,20 @@ public class GameController : MonoBehaviour
                 buttons.SetActive(false);
                 gameOverSceneButtons.SetActive(true);
                 backgrounds.SetActive(false);
+                clearMessageLabel.gameObject.SetActive(false);
                 audioSources[(int)SoundClip.GAME_OVER_THEME].loop = true;
                 audioSources[(int)SoundClip.GAME_OVER_THEME].Play();
+                break;
+            case "ClearScene":
+                ui.SetActive(false);
+                buttons.SetActive(false);
+                gameOverSceneButtons.SetActive(true);
+                backgrounds.SetActive(true);
+                clearMessageLabel.gameObject.SetActive(true);
+                audioSources[(int)SoundClip.START_SCENE_THEME].loop = true;
+                audioSources[(int)SoundClip.START_SCENE_THEME].Play();
+                clearMessageLabel.text += storage.score;
+                Score = storage.score;
                 break;
             default:
                 break;
@@ -175,11 +194,9 @@ public class GameController : MonoBehaviour
     }
     public void startBtnClicked()
     {
+        storage.lives = numOfLives;
+        storage.score = 0;
         SceneManager.LoadScene("Round1Scene");
-    }
-    public void optBtnClicked()
-    {
-        SceneManager.LoadScene("OptionScene");
     }
     public void exitBtnClicked()
     {
@@ -191,12 +208,18 @@ public class GameController : MonoBehaviour
         {
             case 1:
                 SceneManager.LoadScene("Round1Scene");
+                storage.lives = numOfLives;
+                storage.score = 0;
                 break;
             case 2:
                 SceneManager.LoadScene("Round2Scene");
+                storage.lives = numOfLives;
+                storage.score = 0;
                 break;
             case 3:
                 SceneManager.LoadScene("Round3Scene");
+                storage.lives = numOfLives;
+                storage.score = 0;
                 break;
             default:
                 break;
@@ -390,12 +413,19 @@ public class GameController : MonoBehaviour
             case "Round1Scene":
                 storage.lastScene = 2;
                 storage.lives = Lives;
+                storage.score = Score;
                 SceneManager.LoadScene("Round2Scene");
                 break;
             case "Round2Scene":
                 storage.lastScene = 3;
                 storage.lives = Lives;
+                storage.score = Score;
                 SceneManager.LoadScene("Round3Scene");
+                break;
+            case "Round3Scene":
+                storage.lastScene = 1;
+                storage.score = Score;
+                SceneManager.LoadScene("ClearScene");
                 break;
             default:
                 break;
