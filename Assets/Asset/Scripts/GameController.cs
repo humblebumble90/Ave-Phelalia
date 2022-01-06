@@ -5,6 +5,7 @@ using Util;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEditor;
 
 //Copyright by Hyungseok Lee
 public class GameController : MonoBehaviour
@@ -21,17 +22,11 @@ public class GameController : MonoBehaviour
     private int stage;
     private float time;
     public int stageTime;
-    public GameObject e1;
-    private List<GameObject> e1s;
-    public GameObject e2;
-    private List<GameObject> e2s;
-    public GameObject e3;
-    private List<GameObject> e3s;
-    public GameObject e4;
-    private List<GameObject> e4s;
-    public GameObject boss1;
-    public GameObject boss2;
-    public GameObject boss3;
+    private ObjectFactory oF = ObjectFactory.getInstance();
+    private Queue<GameObject> e1s;
+    private Queue<GameObject> e2s;
+    private Queue<GameObject> e3s;
+    private Queue<GameObject> e4s;
     private bool bossSpawned = false;
     public int numOfE1;
     public int numOfE2;
@@ -60,6 +55,7 @@ public class GameController : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource[] audioSources;
     public GameObject explosion;
+
     public int Score
     {
         get => _score;
@@ -99,6 +95,7 @@ public class GameController : MonoBehaviour
     }
     void initialize()
     {
+        
         Debug.Log(SceneManager.GetActiveScene().name);
         switch(SceneManager.GetActiveScene().name)
         {
@@ -120,14 +117,15 @@ public class GameController : MonoBehaviour
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 1;
-                e1s = new List<GameObject>();
-                e2s = new List<GameObject>();
+                e1s = new Queue<GameObject>();
+                e2s = new Queue<GameObject>();
                 Lives = storage.lives;
                 Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME1].loop = true;
                 audioSources[(int)SoundClip.GAME_THEME1].Play();
+                ObjectFactory.getInstance().initialize();
                 break;
             case "Round2Scene":
                 ui.SetActive(true);
@@ -138,15 +136,16 @@ public class GameController : MonoBehaviour
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 2;
-                e1s = new List<GameObject>();
-                e2s = new List<GameObject>();
-                e3s = new List<GameObject>();
+                e1s = new Queue<GameObject>();
+                e2s = new Queue<GameObject>();
+                e3s = new Queue<GameObject>();
                 Lives = storage.lives;
                 Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME2].loop = true;
                 audioSources[(int)SoundClip.GAME_THEME2].Play();
+                ObjectFactory.getInstance().initialize();
                 break;
             case "Round3Scene":
                 ui.SetActive(true);
@@ -157,16 +156,17 @@ public class GameController : MonoBehaviour
                 hco = GameObject.FindGameObjectWithTag("HpStatus");
                 hc = hco.GetComponent<HpBarController>();
                 stage = 3;
-                e1s = new List<GameObject>();
-                e2s = new List<GameObject>();
-                e3s = new List<GameObject>();
-                e4s = new List<GameObject>();
+                e1s = new Queue<GameObject>();
+                e2s = new Queue<GameObject>();
+                e3s = new Queue<GameObject>();
+                e4s = new Queue<GameObject>();
                 Lives = storage.lives;
                 Score = storage.score;
                 Hp = 100;
                 spawnPlayer();
                 audioSources[(int)SoundClip.GAME_THEME3].loop = true;
                 audioSources[(int)SoundClip.GAME_THEME3].Play();
+                ObjectFactory.getInstance().initialize();
                 break;
             case "GameoverScene":
                 ui.SetActive(false);
@@ -257,9 +257,10 @@ public class GameController : MonoBehaviour
                 {
                     float rndXpos = UnityEngine.Random.Range(boundary.Right, boundary.Right+2.0f);
                     float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                    e1s.Add(
-                        Instantiate(e1, new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
+                    e1s.Enqueue(
+                       Instantiate(oF.getObject("e1"), new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
                 }
+                e1s.Dequeue();
                 e1SpawningCool = 0;
             } 
         }
@@ -276,8 +277,8 @@ public class GameController : MonoBehaviour
                 {
                     float rndXpos = UnityEngine.Random.Range(boundary.Right, boundary.Right + 2.0f);
                     float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                    e2s.Add(
-                        Instantiate(e2, new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
+                    e2s.Enqueue(
+                        Instantiate(oF.getObject("e2"), new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
                 }
                 e2SpawningCool = 0;
             } 
@@ -295,23 +296,23 @@ public class GameController : MonoBehaviour
                 {
                     float rndXpos = UnityEngine.Random.Range(boundary.Right, boundary.Right + 2.0f);
                     float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                    e3s.Add(
-                        Instantiate(e3, new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
+                    e3s.Enqueue(
+                        Instantiate(oF.getObject("e3"), new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
                 }
                 e3SpawningCool = 0;
             }
         }
 
-        if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round1Scene")
-        {
-            bossSpawned = true;
-            Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
-        }
-        if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round2Scene")
-        {
-            bossSpawned = true;
-            Instantiate(boss2, new Vector2(boundary.Right, 0), Quaternion.identity);
-        }
+        //if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round1Scene")
+        //{
+        //    bossSpawned = true;
+        //    Instantiate(oF.getObject("boss1"), new Vector2(boundary.Right, 0), Quaternion.identity);
+        //}
+        //if (stageTime == 0 && !bossSpawned && SceneManager.GetActiveScene().name == "Round2Scene")
+        //{
+        //    bossSpawned = true;
+        //    Instantiate(oF.getObject("boss2"), new Vector2(boundary.Right, 0), Quaternion.identity);
+        //}
         //Enemy4 spawning
         if (e4SpawningCool < e4SpawningRate)
         {
@@ -325,8 +326,8 @@ public class GameController : MonoBehaviour
                 {
                     float rndXpos = UnityEngine.Random.Range(boundary.Right, boundary.Right + 2.0f);
                     float rndYPos = UnityEngine.Random.Range(boundary.Top, boundary.Bottom);
-                    e4s.Add(
-                        Instantiate(e4, new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
+                    e4s.Enqueue(
+                        Instantiate(oF.getObject("e4"), new Vector3(rndXpos, rndYPos, 0), Quaternion.identity));
                 }
                 e4SpawningCool = 0;
             }
@@ -338,15 +339,15 @@ public class GameController : MonoBehaviour
             {
                 case "Round1Scene":
                     bossSpawned = true;
-                    Instantiate(boss1, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    Instantiate(oF.getObject("boss1"), new Vector2(boundary.Right, 0), Quaternion.identity);
                     break;
                 case "Round2Scene":
                     bossSpawned = true;
-                    Instantiate(boss2, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    Instantiate(oF.getObject("boss2"), new Vector2(boundary.Right, 0), Quaternion.identity);
                     break;
                 case "Round3Scene":
                     bossSpawned = true;
-                    Instantiate(boss3, new Vector2(boundary.Right, 0), Quaternion.identity);
+                    Instantiate(oF.getObject("boss3"), new Vector2(boundary.Right, 0), Quaternion.identity);
                     break;
                 default:
                     break;

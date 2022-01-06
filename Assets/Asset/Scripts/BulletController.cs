@@ -40,27 +40,6 @@ public class BulletController : MonoBehaviour
     }
     void move()
     {
-        //if (this.gameObject.tag == "PlayerFire")
-        //{
-        //    currPos = transform.position;
-        //    currPos += newPos;
-        //    transform.position = currPos;
-        //}
-        //else
-        //{
-        //    if (isTargetting && target != null)
-        //    {
-        //        currPos = transform.position;
-        //        currPos += newPos;
-        //        transform.position = currPos;
-        //    }
-        //    else if (!isTargetting || target == null)
-        //    {
-        //        currPos = transform.position;
-        //        currPos -= newPos;
-        //        transform.position = currPos;
-        //    }
-        //}
         currPos = transform.position;
         currPos += newPos;
         transform.position = currPos;

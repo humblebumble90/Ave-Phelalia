@@ -170,6 +170,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -417.4
       objectReference: {fileID: 0}
+    - target: {fileID: 137699175489726856, guid: 8f18b9c419626684f8efeafb73fd556e,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 137699175489726857, guid: 8f18b9c419626684f8efeafb73fd556e,
         type: 3}
       propertyPath: m_Camera

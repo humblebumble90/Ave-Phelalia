@@ -54,6 +54,7 @@ MonoBehaviour:
   timeLabel: {fileID: 0}
   livesLabel: {fileID: 0}
   scoreLabel: {fileID: 0}
+  clearMessageLabel: {fileID: 0}
   buttons: {fileID: 0}
   gameOverSceneButtons: {fileID: 0}
   backgrounds: {fileID: 0}

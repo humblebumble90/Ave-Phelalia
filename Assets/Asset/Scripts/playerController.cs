@@ -20,10 +20,9 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject gco = GameObject.FindGameObjectWithTag("GameController");
         GameObject hpo = GameObject.FindGameObjectWithTag("HpStatus");
-        gc = gco.GetComponent<GameController>();
-        hc = hpo.GetComponent<HpBarController>();
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        hc = GameObject.FindGameObjectWithTag("HpStatus").GetComponent<HpBarController>();
         explosion = gc.explosion;
     }
 
